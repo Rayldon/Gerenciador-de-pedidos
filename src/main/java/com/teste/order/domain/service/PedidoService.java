@@ -3,6 +3,7 @@ package com.teste.order.domain.service;
 import com.teste.order.application.dto.PedidoDTO;
 import com.teste.order.domain.model.Cliente;
 import com.teste.order.domain.model.Pedido;
+import com.teste.order.domain.model.PedidoBuilder;
 import com.teste.order.domain.model.Produto;
 import com.teste.order.domain.model.SituacaoPedido;
 import com.teste.order.domain.repository.ClienteRepository;
@@ -36,12 +37,13 @@ public class PedidoService {
         Produto produto = produtoRepository.buscarPorId(pedidoDTO.getIdProduto())
                 .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
 
-        Pedido pedido = new Pedido();
-        pedido.setCliente(cliente);
-        pedido.setProduto(produto);
-        pedido.setQuantidade(pedidoDTO.getQuantidade());
-        pedido.setSituacao(SituacaoPedido.get(pedidoDTO.getIdSituacao()));
-        pedido.setDataPedido(LocalDateTime.now());
+        Pedido pedido = new PedidoBuilder()
+                .cliente(cliente)
+                .produto(produto)
+                .situacao(SituacaoPedido.get(pedidoDTO.getIdSituacao()))
+                .quantidade(3)
+                .dataPedido(LocalDateTime.now())
+                .build();
 
         return pedidoRepository.salvar(pedido);
     }
