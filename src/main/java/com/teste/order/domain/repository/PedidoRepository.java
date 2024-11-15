@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface PedidoRepository {
     List<Pedido> buscarTodos();
+
+    Pedido salvar(Pedido pedido);
 }

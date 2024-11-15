@@ -13,11 +13,6 @@ CREATE TABLE tb_produto (
      data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE tb_tipo_situacao (
-   id INT AUTO_INCREMENT PRIMARY KEY,
-   descricao VARCHAR(100) NOT NULL  -- Descrição da situação (ex: "Pendente")
-);
-
 CREATE TABLE tb_pedido (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     id_cliente BIGINT,
@@ -26,6 +21,5 @@ CREATE TABLE tb_pedido (
     data_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_situacao INT,
     FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id),
-    FOREIGN KEY (id_produto) REFERENCES tb_produto(id),
-    FOREIGN KEY (id_situacao) REFERENCES tb_tipo_situacao(id)
+    FOREIGN KEY (id_produto) REFERENCES tb_produto(id)
 );

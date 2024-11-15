@@ -30,6 +30,9 @@ public class Pedido {
     @JoinColumn(name = "id_produto", nullable = false)
     private Produto produto;
 
+    @Column(name = "quantidade", nullable = false)
+    private Integer quantidade;
+
     @Column(name = "data_pedido", nullable = false)
     private LocalDateTime dataPedido;
 
@@ -59,6 +62,14 @@ public class Pedido {
 
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
     }
 
     public LocalDateTime getDataPedido() {

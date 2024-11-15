@@ -1,5 +1,7 @@
 package com.teste.order.domain.model;
 
+import java.util.Arrays;
+
 public enum SituacaoPedido {
     PENDENTE(0, "Pendente"),
     CONFIRMADO(1, "Confirmado"),
@@ -22,6 +24,13 @@ public enum SituacaoPedido {
 
     public String getSituacao() {
         return situacao;
+    }
+
+    public static SituacaoPedido get(int id) {
+        return Arrays.stream(SituacaoPedido.values())
+                .filter(status -> status.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Situação com id " + id + " não encontrado."));
     }
 
     @Override

@@ -18,4 +18,9 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     public List<Pedido> buscarTodos() {
         return repository.findAll();
     }
+
+    @Override
+    public Pedido salvar(Pedido pedido) {
+        return repository.save(pedido);
+    }
 }

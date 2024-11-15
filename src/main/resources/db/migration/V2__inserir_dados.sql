@@ -1,11 +1,3 @@
-INSERT INTO tb_tipo_situacao (descricao) VALUES
-('Pendente'),
-('Confirmado'),
-('Em Preparação'),
-('Enviado'),
-('Entregue'),
-('Cancelado');
-
 INSERT INTO tb_cliente(nome, email, data_cadastro) VALUES
 ('Pedro Paulo', 'pedro@gmail.com', NOW());
 
