@@ -9,7 +9,6 @@ import com.teste.order.domain.model.SituacaoPedido;
 import com.teste.order.domain.repository.ClienteRepository;
 import com.teste.order.domain.repository.PedidoRepository;
 import com.teste.order.domain.repository.ProdutoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,14 +17,17 @@ import java.util.List;
 @Service
 public class PedidoService {
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+    private final ClienteRepository clienteRepository;
 
-    @Autowired
-    private ProdutoRepository produtoRepository;
+    private final ProdutoRepository produtoRepository;
 
-    @Autowired
-    private PedidoRepository pedidoRepository;
+    private final PedidoRepository pedidoRepository;
+
+    public PedidoService(ClienteRepository clienteRepository, ProdutoRepository produtoRepository, PedidoRepository pedidoRepository) {
+        this.clienteRepository = clienteRepository;
+        this.produtoRepository = produtoRepository;
+        this.pedidoRepository = pedidoRepository;
+    }
 
     public List<Pedido> listarPedidos() {
         return pedidoRepository.buscarTodos();
