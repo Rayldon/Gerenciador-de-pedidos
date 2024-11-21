@@ -2,10 +2,19 @@ package com.teste.order.application.dto;
 
 public class PedidoDTO {
 
+    private Long id;
     private Long idCliente;
     private Long idProduto;
     private Integer quantidade;
     private Integer idSituacao;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getIdCliente() {
         return idCliente;

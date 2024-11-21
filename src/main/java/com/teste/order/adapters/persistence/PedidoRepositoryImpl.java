@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PedidoRepositoryImpl implements PedidoRepository {
@@ -20,7 +21,17 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     }
 
     @Override
+    public Optional<Pedido> buscarPorId(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
     public Pedido salvar(Pedido pedido) {
         return repository.save(pedido);
+    }
+
+    @Override
+    public void remover(Long idPedido) {
+        repository.deleteById(idPedido);
     }
 }

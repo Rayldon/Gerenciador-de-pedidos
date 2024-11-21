@@ -16,20 +16,13 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails user = User.withUsername("user")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER")
-                .build();
-
         UserDetails admin = User.withUsername("admin")
                 .password(passwordEncoder().encode("admin"))
                 .roles("ADMIN")
                 .build();
 
         return username -> {
-            if (username.equals("user")) {
-                return user;
-            } else if (username.equals("admin")) {
+            if (username.equals("admin")) {
                 return admin;
             }
             return null;
@@ -44,9 +37,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeRequests()
-                .requestMatchers("/**").permitAll()
-                .anyRequest().authenticated();
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/**").permitAll()
+                        .anyRequest().authenticated()
+                );
         return http.build();
     }
 }
