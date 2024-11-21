@@ -20,6 +20,7 @@ CREATE TABLE tb_pedido (
     quantidade INT NOT NULL,
     data_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_situacao INT,
+    pedido_hash CHAR(35) NOT NULL,
     FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id),
     FOREIGN KEY (id_produto) REFERENCES tb_produto(id)
 );

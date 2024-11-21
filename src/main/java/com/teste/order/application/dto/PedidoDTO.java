@@ -1,5 +1,9 @@
 package com.teste.order.application.dto;
 
+import com.teste.order.domain.model.SituacaoPedido;
+
+import java.util.Objects;
+
 public class PedidoDTO {
 
     private Long id;
@@ -37,5 +41,20 @@ public class PedidoDTO {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idCliente, idProduto, quantidade, SituacaoPedido.PENDENTE.getId());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        PedidoDTO that = (PedidoDTO) obj;
+        return Objects.equals(idCliente, that.idCliente) &&
+                Objects.equals(quantidade, that.quantidade) &&
+                Objects.equals(idProduto, that.idProduto);
     }
 }

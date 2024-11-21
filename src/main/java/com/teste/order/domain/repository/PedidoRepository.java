@@ -13,4 +13,6 @@ public interface PedidoRepository {
     Pedido salvar(Pedido pedido);
 
     void remover(Long idPedido);
+
+    boolean verificarPedidoDuplicado(String pedidoHash);
 }

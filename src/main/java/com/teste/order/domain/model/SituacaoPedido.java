@@ -18,7 +18,7 @@ public enum SituacaoPedido {
         this.situacao = situacao;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -9,6 +9,7 @@ public class PedidoBuilder {
     private SituacaoPedido situacao;
     private Integer quantidade;
     private LocalDateTime dataPedido;
+    private String pedidoHash;
 
     public PedidoBuilder cliente(Cliente cliente) {
         this.cliente = cliente;
@@ -35,6 +36,11 @@ public class PedidoBuilder {
         return this;
     }
 
+    public PedidoBuilder pedidHash(String pedidoHash) {
+        this.pedidoHash = pedidoHash;
+        return this;
+    }
+
     public Pedido build() {
         Pedido pedido = new Pedido();
         pedido.setCliente(this.cliente);
@@ -42,6 +48,7 @@ public class PedidoBuilder {
         pedido.setSituacao(this.situacao);
         pedido.setQuantidade(this.quantidade);
         pedido.setDataPedido(this.dataPedido);
+        pedido.setPedidoHash(this.pedidoHash);
         return pedido;
     }
 }

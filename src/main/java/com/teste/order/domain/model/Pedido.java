@@ -1,5 +1,6 @@
 package com.teste.order.domain.model;
 
+import com.teste.order.application.dto.PedidoDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,8 +11,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_pedido")
@@ -31,7 +34,7 @@ public class Pedido {
     private Produto produto;
 
     @Column(name = "quantidade", nullable = false)
-    private Integer quantidade;
+    private Integer quantidade = 0;
 
     @Column(name = "data_pedido", nullable = false)
     private LocalDateTime dataPedido;
@@ -39,6 +42,9 @@ public class Pedido {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "id_situacao", nullable = false)
     private SituacaoPedido situacao;
+
+    @Column(name = "pedido_hash", nullable = false, length = 35)
+    private String pedidoHash;
 
     public Long getId() {
         return id;
@@ -86,5 +92,32 @@ public class Pedido {
 
     public void setSituacao(SituacaoPedido situacao) {
         this.situacao = situacao;
+    }
+
+    public String getPedidoHash() {
+        return pedidoHash;
+    }
+
+    public void setPedidoHash(String pedidoHash) {
+        this.pedidoHash = pedidoHash;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cliente != null ? cliente.getId() : 0,
+                produto != null ? produto.getId() : 0,
+                quantidade,
+                situacao != null ? situacao.getId() : 0);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Pedido that = (Pedido) obj;
+        return Objects.equals(cliente.getId(), that.cliente.getId()) &&
+                Objects.equals(quantidade, that.quantidade) &&
+                Objects.equals(situacao.getId(), that.situacao.getId()) &&
+                Objects.equals(produto.getId(), that.produto.getId());
     }
 }

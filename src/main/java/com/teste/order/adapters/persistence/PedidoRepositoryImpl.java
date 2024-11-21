@@ -34,4 +34,9 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     public void remover(Long idPedido) {
         repository.deleteById(idPedido);
     }
+
+    @Override
+    public boolean verificarPedidoDuplicado(String pedidoHash) {
+        return repository.existsByPedidoHash(pedidoHash);
+    }
 }

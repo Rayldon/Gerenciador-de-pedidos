@@ -10,6 +10,7 @@ import com.teste.order.domain.repository.ClienteRepository;
 import com.teste.order.domain.repository.PedidoRepository;
 import com.teste.order.domain.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,6 +35,10 @@ public class PedidoService {
     }
 
     public Pedido salvar(PedidoDTO pedidoDTO) {
+        if(isPedidoDuplicado(pedidoDTO)){
+            throw new RuntimeException("Pedido já existente!");
+        }
+
         Pedido pedido;
 
         Cliente cliente = clienteRepository.buscarPorId(pedidoDTO.getIdCliente())
@@ -48,6 +53,7 @@ public class PedidoService {
                     .situacao(SituacaoPedido.PENDENTE)
                     .quantidade(pedidoDTO.getQuantidade())
                     .dataPedido(LocalDateTime.now())
+                    .pedidHash(DigestUtils.md5DigestAsHex(Integer.toString(pedidoDTO.hashCode()).getBytes()))
                     .build();
         }else{
             pedido = pedidoRepository.buscarPorId(pedidoDTO.getId())
@@ -62,5 +68,10 @@ public class PedidoService {
 
     public void remover(Long idPedido) {
         pedidoRepository.remover(idPedido);
+    }
+
+    private boolean isPedidoDuplicado(PedidoDTO pedidoDTO) {
+        String hashMD5 = DigestUtils.md5DigestAsHex(Integer.toString(pedidoDTO.hashCode()).getBytes());
+        return pedidoRepository.verificarPedidoDuplicado(hashMD5);
     }
 }

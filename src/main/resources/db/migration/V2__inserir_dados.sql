@@ -13,5 +13,5 @@ INSERT INTO tb_produto(nome, descricao, preco, data_cadastro) VALUES
     ('Produto 9', 'Produto 9', 50.99, NOW()),
     ('Produto 10', 'Produto 10', 1.99, NOW());
 
-INSERT INTO tb_pedido(id_cliente, id_produto, quantidade, data_pedido, id_situacao) VALUES
-(1, 1, 1, NOW(), 0);
+INSERT INTO tb_pedido(id_cliente, id_produto, quantidade, data_pedido, id_situacao, pedido_hash) VALUES
+(1, 1, 1, NOW(), 0, 'b97bcad16f28446f5acb853629b7269b');
