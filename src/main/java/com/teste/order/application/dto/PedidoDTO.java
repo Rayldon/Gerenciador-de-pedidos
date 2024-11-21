@@ -6,7 +6,6 @@ public class PedidoDTO {
     private Long idCliente;
     private Long idProduto;
     private Integer quantidade;
-    private Integer idSituacao;
 
     public Long getId() {
         return id;
@@ -38,13 +37,5 @@ public class PedidoDTO {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
-    }
-
-    public Integer getIdSituacao() {
-        return idSituacao;
-    }
-
-    public void setIdSituacao(Integer idSituacao) {
-        this.idSituacao = idSituacao;
     }
 }

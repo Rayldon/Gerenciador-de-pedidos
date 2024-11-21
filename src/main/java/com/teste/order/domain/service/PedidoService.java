@@ -41,11 +41,11 @@ public class PedidoService {
         Produto produto = produtoRepository.buscarPorId(pedidoDTO.getIdProduto())
                 .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
 
-        if(pedidoDTO.getId() != null) {
+        if(pedidoDTO.getId() == null) {
             pedido = new PedidoBuilder()
                     .cliente(cliente)
                     .produto(produto)
-                    .situacao(SituacaoPedido.get(pedidoDTO.getIdSituacao()))
+                    .situacao(SituacaoPedido.PENDENTE)
                     .quantidade(pedidoDTO.getQuantidade())
                     .dataPedido(LocalDateTime.now())
                     .build();
