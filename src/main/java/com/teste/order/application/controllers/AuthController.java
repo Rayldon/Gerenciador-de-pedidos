@@ -27,7 +27,9 @@ public class AuthController {
         String password = login.getPassword();
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        return jwtTokenUtil.generateToken(username);
+        String token = jwtTokenUtil.generateToken(username);
+        System.out.println(token);
+        return token;
     }
 }
 

@@ -86,8 +86,8 @@ public class Pedido {
         this.dataPedido = dataPedido;
     }
 
-    public String getSituacao() {
-        return situacao.toString();
+    public SituacaoPedido getSituacao() {
+        return situacao;
     }
 
     public void setSituacao(SituacaoPedido situacao) {

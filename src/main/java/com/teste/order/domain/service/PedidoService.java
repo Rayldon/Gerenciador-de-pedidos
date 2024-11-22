@@ -70,6 +70,19 @@ public class PedidoService {
         pedidoRepository.remover(idPedido);
     }
 
+    public Pedido alterarSituacao(Long idPedido){
+        Pedido pedido = pedidoRepository.buscarPorId(idPedido)
+                .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
+
+        if(pedido.getSituacao().equals(SituacaoPedido.ENTREGUE)){
+            return pedido;
+        }
+        SituacaoPedido proximaSituacao = SituacaoPedido.get(pedido.getSituacao().getId() + 1);
+        pedido.setSituacao(proximaSituacao);
+
+        return pedidoRepository.salvar(pedido);
+    }
+
     private boolean isPedidoDuplicado(PedidoDTO pedidoDTO) {
         String hashMD5 = DigestUtils.md5DigestAsHex(Integer.toString(pedidoDTO.hashCode()).getBytes());
         return pedidoRepository.verificarPedidoDuplicado(hashMD5);
