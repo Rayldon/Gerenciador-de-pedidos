@@ -42,6 +42,7 @@ O sistema possui dois serviços principais:
 
 ## Endpoints e Links Úteis
 
+- **Link para a aplicação**: [http://localhost:8080](http://localhost:8080)
 - **Swagger (Documentação da API)**: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 - **Console do H2**: [http://localhost:8080/h2-console/login.jsp](http://localhost:8080/h2-console/login.jsp)
   - **JDBC URL**: `jdbc:h2:mem:orderdb`
