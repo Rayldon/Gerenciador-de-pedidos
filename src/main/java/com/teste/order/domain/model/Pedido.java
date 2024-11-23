@@ -97,6 +97,10 @@ public class Pedido {
         this.situacao = situacao;
     }
 
+    public String getPedidoHash() {
+        return pedidoHash;
+    }
+
     @PrePersist
     @PreUpdate
     public void gerarHash() {
