@@ -1,6 +1,7 @@
 package com.teste.order.application.dto;
 
 import com.teste.order.domain.model.SituacaoPedido;
+import org.springframework.util.DigestUtils;
 
 import java.util.Objects;
 
@@ -41,6 +42,11 @@ public class PedidoDTO {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public String gerarHash() {
+        String input = Integer.toString(this.hashCode());
+        return DigestUtils.md5DigestAsHex(input.getBytes());
     }
 
     @Override

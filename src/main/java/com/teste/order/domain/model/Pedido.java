@@ -10,10 +10,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Objects;
 
 @Entity
@@ -94,12 +97,13 @@ public class Pedido {
         this.situacao = situacao;
     }
 
-    public String getPedidoHash() {
-        return pedidoHash;
-    }
-
-    public void setPedidoHash(String pedidoHash) {
-        this.pedidoHash = pedidoHash;
+    @PrePersist
+    @PreUpdate
+    public void gerarHash() {
+        if (cliente != null && produto != null && situacao.getId() != null) {
+            String input = Integer.toString(this.hashCode());
+            this.pedidoHash = DigestUtils.md5DigestAsHex(input.getBytes());
+        }
     }
 
     @Override

@@ -10,7 +10,6 @@ import com.teste.order.domain.repository.ClienteRepository;
 import com.teste.order.domain.repository.PedidoRepository;
 import com.teste.order.domain.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -40,7 +39,6 @@ public class PedidoService {
         }
 
         Pedido pedido;
-
         Cliente cliente = clienteRepository.buscarPorId(pedidoDTO.getIdCliente())
                 .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
         Produto produto = produtoRepository.buscarPorId(pedidoDTO.getIdProduto())
@@ -53,7 +51,6 @@ public class PedidoService {
                     .situacao(SituacaoPedido.PENDENTE)
                     .quantidade(pedidoDTO.getQuantidade())
                     .dataPedido(LocalDateTime.now())
-                    .pedidHash(DigestUtils.md5DigestAsHex(Integer.toString(pedidoDTO.hashCode()).getBytes()))
                     .build();
         }else{
             pedido = pedidoRepository.buscarPorId(pedidoDTO.getId())
@@ -84,7 +81,6 @@ public class PedidoService {
     }
 
     private boolean isPedidoDuplicado(PedidoDTO pedidoDTO) {
-        String hashMD5 = DigestUtils.md5DigestAsHex(Integer.toString(pedidoDTO.hashCode()).getBytes());
-        return pedidoRepository.verificarPedidoDuplicado(hashMD5);
+        return pedidoRepository.verificarPedidoDuplicado(pedidoDTO.gerarHash());
     }
 }
